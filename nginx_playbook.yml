@@ -1,0 +1,13 @@
+---
+- name : Updating packages 
+  hosts: all
+  become : true
+  gather_facts: yes
+
+  tasks:
+   - name: Updating packages on all machine
+     yum:
+      name: "*"
+      state: latest
+
+  
