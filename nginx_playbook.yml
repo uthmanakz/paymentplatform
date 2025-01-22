@@ -17,4 +17,21 @@
       state: latest
      when: ansible_facts ['distribution'] in ['Ubuntu']
 
+- name : Updating packages 
+  hosts: webs
+  become : true
+  gather_facts: yes
+
+  tasks:
+   - name: Updating packages on all machine
+     yum:
+      name: nginx
+      state: present
+     when: ansible_facts ['distribution'] in ['Amazon']
+
+   - name: yum update
+     apt:
+      name: nginx
+      state: present
+     when: ansible_facts ['distribution'] in ['Ubuntu']
   
