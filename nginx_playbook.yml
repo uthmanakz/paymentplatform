@@ -9,12 +9,12 @@
      yum:
       name: "*"
       state: latest
-     when: ansible_facts ['distrubution'] in ['Amazon']
+     when: ansible_facts ['distribution'] in ['Amazon']
 
    - name: yum update
      yum:
       name: "*"
       state: latest
-     when: ansible_facts ['distrubution'] in ['Ubuntu']
+     when: ansible_facts ['distribution'] in ['Ubuntu']
 
   
