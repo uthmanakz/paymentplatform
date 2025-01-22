@@ -5,7 +5,7 @@
   gather_facts: yes
 
   tasks:
-   - name: Updating packages on all machine
+   - name: Updating yum packages on all machine
      yum:
       name: "*"
       state: latest
@@ -17,19 +17,19 @@
       state: latest
      when: ansible_facts ['distribution'] in ['Ubuntu']
 
-- name : Updating packages 
+- name : nginx playbook
   hosts: webs
   become : true
   gather_facts: yes
 
   tasks:
-   - name: Updating packages on all machine
+   - name: installing nginx 
      yum:
       name: nginx
       state: present
      when: ansible_facts ['distribution'] in ['Amazon']
 
-   - name: yum update
+   - name: installing nginx
      apt:
       name: nginx
       state: present
