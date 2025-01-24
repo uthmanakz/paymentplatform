@@ -1,0 +1,19 @@
+---
+- name: Configuring Nginx on web servers
+  become: true
+  gather_facts: true
+  hosts: webs
+
+  tasks:
+  - name: Installing Nginx on web-amazon
+    yum:
+     name: nginx 
+     state: "{{ nginx_state }}"
+    when: ansible_facts ['distribution'] in ['Amazon']
+
+  - name: Installing Nginx in web-ubuntu
+    yum:
+     name: nginx
+     state: "{{ nginx_state }}"
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+
