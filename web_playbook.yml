@@ -17,3 +17,13 @@
      state: "{{ nginx_state }}"
     when: ansible_facts ['distribution'] in ['Ubuntu']
 
+  - name: Starting Nginx on web-amazon
+    service:
+     name: nginx
+     state: started
+    when: nginx_state == "present" 
+
+ 
+
+
+
