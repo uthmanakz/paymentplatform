@@ -31,14 +31,6 @@
     when: nginx_state == "present" 
 
 
-
-
-  - name: Reloading nginx configuration file
-    service:
-     name: nginx
-     state: restarted
-    when: nginx_state == "present"
-
  
 
 
