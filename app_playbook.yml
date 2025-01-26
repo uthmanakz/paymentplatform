@@ -30,6 +30,11 @@
      state:  "{{ java_state }}"
     when: ansible_facts ['distribution'] in ['Amazon']
 
+  - name: Update apt package list
+    apt:
+      update_cache: yes
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+
   - name: Installing Java on Ubuntu OS
     apt:
      name: openjdk-17-jdk
