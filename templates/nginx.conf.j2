@@ -35,7 +35,7 @@ http {
     include /etc/nginx/conf.d/*.conf;
 
     upstream java-nodes {
-    {% for host in groups['java_nodes'] %}
+    {% for host in groups['apps'] %}
     server {{ host }}:80;
     {% endfor %}
     }
