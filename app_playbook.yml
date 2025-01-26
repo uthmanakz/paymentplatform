@@ -1,2 +1,71 @@
 ---
-- name: Deploying Java 
+- name: Deploying Java Application
+  become: true
+  hosts: apps
+  gather_facts: true
+
+  tasks:
+  - name: Installing Git In Aamaon Linux OS
+    yum: 
+     name: git
+     state: present
+    when: ansible_facts ['distribution'] in ['Amazon']
+
+
+  - name: Installing Git in Ubuntu OS
+    apt: 
+     name: git
+     state: present
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+
+
+  - name: Cloning Git Repo
+    git:
+    repo: https://github.com/techbleat/stockprice.git
+    dest: /home/ec2-user/stockprice
+
+  - name: Installing Java
+    yum:
+     name: java-17-amazon-corretto
+     state:  "{{ java_state }}"
+    when: ansible_facts ['distribution'] in ['Amazon']
+
+  - name: Installing Java
+    apt:
+     name: java-17-amazon-corretto
+     state: "{{ java_state }}"
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+
+  - name: Installing Java
+    yum:
+     name: maven
+     state: "{{ maven_state }}"
+    when: ansible_facts ['distribution'] in ['Amazon']
+
+  - name: Installing Java
+    apt:
+     name: maven
+     state: "{{ maven_state }}"
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+
+  - name: Building Java Application
+    shell: mvn clean install 
+    args:
+     chdir: /home/ec2-user/stockprice
+    register: build_output
+    when: maven_stae == 'present'
+
+  - name: Show Build Logs
+    debug: 
+      var: build_output.stdout_lines 
+
+  - name: Runnung Java Application
+    shell: mvn spring-boot:run
+    args:
+      chdir: /home/ec2-user/stockprice
+    when: maven_stae == 'present'
+
+
+
+
+
