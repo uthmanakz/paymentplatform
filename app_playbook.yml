@@ -5,7 +5,7 @@
   gather_facts: true
 
   tasks:
-  - name: Installing Git In Aamaon Linux OS
+  - name: Installing Git In Amazon Linux OS
     yum: 
      name: git
      state: present
