@@ -21,8 +21,8 @@
 
   - name: Cloning Git Repo
     git:
-    repo: https://github.com/techbleat/stockprice.git
-    dest: /home/ec2-user/stockprice
+     repo: https://github.com/techbleat/stockprice.git
+     dest: /home/ec2-user/stockprice
 
   - name: Installing Java
     yum:
@@ -53,7 +53,7 @@
     args:
      chdir: /home/ec2-user/stockprice
     register: build_output
-    when: maven_stae == 'present'
+    when: maven_state == 'present'
 
   - name: Show Build Logs
     debug: 
@@ -63,7 +63,7 @@
     shell: mvn spring-boot:run
     args:
       chdir: /home/ec2-user/stockprice
-    when: maven_stae == 'present'
+    when: maven_state == 'present'
 
 
 
