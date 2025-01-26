@@ -24,25 +24,25 @@
      repo: https://github.com/techbleat/stockprice.git
      dest: /home/ec2-user/stockprice
 
-  - name: Installing Java
+  - name: Installing Java on Amazon Linux OS
     yum:
      name: java-17-amazon-corretto
      state:  "{{ java_state }}"
     when: ansible_facts ['distribution'] in ['Amazon']
 
-  - name: Installing Java
+  - name: Installing Java on Ubuntu OS
     apt:
-     name: java-17-amazon-corretto
+     name: openjdk-17-jdk
      state: "{{ java_state }}"
     when: ansible_facts ['distribution'] in ['Ubuntu']
 
-  - name: Installing Java
+  - name: Installing Maven on Amazon Linux OS
     yum:
      name: maven
      state: "{{ maven_state }}"
     when: ansible_facts ['distribution'] in ['Amazon']
 
-  - name: Installing Java
+  - name: Installing Maven on Ubuntu OS
     apt:
      name: maven
      state: "{{ maven_state }}"
