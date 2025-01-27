@@ -30,12 +30,12 @@
      dest: /etc/nginx/nginx.conf
     when: nginx_state == "present" 
   
-  - name: Adding nginx name variable
+  - name: Adding nginx name variable for Amazon OS
     set_fact:
      nginx_user : "nginx"
     when: ansible_facts ['distribution'] in ['Amazon']
 
-  - name: Adding nginx name variable
+  - name: Adding nginx name variable for Ubuntu OS
     set_fact:
      nginx_user : "www-data"
     when: ansible_facts ['distribution'] in ['Ubuntu']
