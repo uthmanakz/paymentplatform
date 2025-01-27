@@ -41,11 +41,11 @@
     when: ansible_facts ['distribution'] in ['Ubuntu']
 
 
-- name: Reloading
-  service:
-   name: nginx
-   state: reloaded
-  when: nginx_state == 'present'
+  - name: Reloading
+    service:
+     name: nginx
+     state: reloaded
+    when: nginx_state == 'present'
  
 
 
