@@ -37,7 +37,7 @@
 
   - name: Adding nginx name variable
     set_fact:
-     nginx_user : "nginx"
+     nginx_user : "www-data"
     when: ansible_facts ['distribution'] in ['Ubuntu']
 
 
