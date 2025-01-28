@@ -46,8 +46,8 @@ http {
         server_name  _;
         root         /usr/share/nginx/html;
 
-        location /java-app {
-        proxy_pass http://java-nodes;
+        location /java-app/ {
+        proxy_pass http://java-nodes/;
         }
 
 
