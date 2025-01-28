@@ -81,7 +81,7 @@
   - name: Starting the stockprice.service 
     systemd:
      name: stockprice.service
-     state: stopped
+     state: started
 
 
 
