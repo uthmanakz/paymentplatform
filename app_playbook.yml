@@ -76,9 +76,8 @@
 
   - name: Reloading stockprice.service 
     systemd:
-     name: stockprice.service
-     state: reloaded
-
+     daemon_reload: yes
+     
   - name: Starting the stockprice.service 
     systemd:
      name: stockprice.service
