@@ -65,14 +65,15 @@
     args:
      chdir: /home/ec2-user/stockprice
     register: build_output
-    when: maven_state == 'present'
+    when: maven_state == 'present' and ansible_facts ['distribution'] in ['Amazon']
 
   - name: Building Java Application
     shell: mvn clean install 
     args:
      chdir: /home/ubuntu/stockprice
     register: build_output
-    when: maven_state == 'present'
+    when: maven_state == 'present' and ansible_facts ['distribution'] in ['Ubuntu']
+    
 
   - name: Show Build Logs
     debug: 
