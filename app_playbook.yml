@@ -23,7 +23,14 @@
     git:
      repo: https://github.com/techbleat/stockprice.git
      dest: /home/ec2-user/stockprice
+    when: ansible_facts ['distribution'] in ['Amazon']
 
+  - name: Cloning Git Repo
+    git:
+     repo: https://github.com/techbleat/stockprice.git
+     dest: /home/ubuntu/stockprice
+    when: ansible_facts ['distribution'] in ['Ubuntu']
+  
   - name: Installing Java on Amazon Linux OS
     yum:
      name: java-17-amazon-corretto
@@ -60,6 +67,13 @@
     register: build_output
     when: maven_state == 'present'
 
+  - name: Building Java Application
+    shell: mvn clean install 
+    args:
+     chdir: /home/ubuntu/stockprice
+    register: build_output
+    when: maven_state == 'present'
+
   - name: Show Build Logs
     debug: 
       var: build_output.stdout_lines 
@@ -73,6 +87,17 @@
     template:
      src: templates/stockprice.service.j2
      dest: /etc/systemd/system/stockprice.service
+    vars:
+     node_user: "ec2-user"
+    when: ansible_facts ['distribution'] in ['Amazon']
+
+  - name: Configuring stockprice.service file
+    template:
+     src: templates/stockprice.service.j2
+     dest: /etc/systemd/system/stockprice.service
+    vars:
+     node_user: "ubuntu"
+    when: ansible_facts ['distribution'] in ['Ubuntu']
 
   - name: Reloading stockprice.service 
     systemd:
