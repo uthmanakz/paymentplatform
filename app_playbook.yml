@@ -77,11 +77,11 @@
   - name: Reloading stockprice.service 
     systemd:
      daemon_reload: yes
-     
+
   - name: Starting the stockprice.service 
     systemd:
      name: stockprice.service
-     state: started
+     state: stopped
 
 
 
