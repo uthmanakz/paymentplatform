@@ -64,12 +64,25 @@
     debug: 
       var: build_output.stdout_lines 
 
-  - name: Runnung Java Application
-    shell: mvn spring-boot:run
-    args:
-      chdir: /home/ec2-user/stockprice
-    when: maven_state == 'present'
+  - name: Creating Service file
+    file:
+     path: /etc/systemd/system/stockprice.service
+     state: touch
+  
+  - name: Configuring stockprice.service file
+    template:
+     src: templates/stockprice.service.j2
+     dest: /etc/systemd/system/stockprice.service
 
+  - name: Reloading stockprice.service 
+    systemd:
+     name: stockprice.service
+     state: reloaded
+
+  - name: Starting the stockprice.service 
+    systemd:
+     name: stockprice.service
+     state: started
 
 
 
